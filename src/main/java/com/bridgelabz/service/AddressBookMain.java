@@ -1,17 +1,20 @@
-package com.bridgelabze.service;
+package com.bridgelabz.service;
+import com.bridgelabz.exception.AddressBookException;
+import com.bridgelabz.interfaces.AddressBookControllerInterface;
+import com.bridgelabz.model.Person;
 
-import com.bridgelabze.model.Person;
-import java.io.IOException;
 
 public class AddressBookMain {
 
-    public String addressBook(Person person, String file_path, String create_file) throws IOException {
+    // function address Book to provide service.
+    public String addressBook(Person person, String file_path, String create_file) throws AddressBookException {
         AddressBookControllerInterface controller = AddressBookFactory.createControlerInterface();
-        AddressBookInterface addressBook = AddressBookFactory.createAddressBookInterface();
-        switch (create_file){
+        switch (create_file) {
             case "addressBook":
                 return controller.createNewAddressBook(file_path);
+            default: {
+                throw new AddressBookException(AddressBookException.MyException_Type.WRONG_CHOICE, "Enter Right Choice");
+            }
         }
-        return null;
     }
 }
