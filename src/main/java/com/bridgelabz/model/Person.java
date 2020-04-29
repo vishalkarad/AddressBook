@@ -7,12 +7,14 @@ public class Person {
     private String state;
     private String zip;
 
+    public Person() {
+    }
+
     public Person(String firstName, String lastName, String city, String state, String zip) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
         this.state = state;
         this.zip = zip;
-
     }
 }
