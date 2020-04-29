@@ -1,12 +1,12 @@
-package com.bridgelabze.service;
+package com.bridgelabz.service;
 
-import com.bridgelabze.controller.AddressBookController;
+import com.bridgelabz.controller.AddressBookController;
+import com.bridgelabz.interfaces.AddressBookControllerInterface;
 
 public class AddressBookFactory {
+
+    // Return Object Of AddressBookController
     public static AddressBookControllerInterface createControlerInterface() {
         return new AddressBookController();
-    }
-    public static AddressBookInterface createAddressBookInterface() {
-        return new AddressBook();
     }
 }
