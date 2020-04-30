@@ -1,4 +1,4 @@
-package com.bridgelabze.model;
+package com.bridgelabz.model;
 
 public class Person {
     private String firstName;
@@ -16,5 +16,16 @@ public class Person {
         this.city = city;
         this.state = state;
         this.zip = zip;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                '}';
     }
 }
