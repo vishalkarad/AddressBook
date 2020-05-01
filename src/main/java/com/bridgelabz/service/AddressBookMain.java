@@ -1,33 +1,31 @@
 package com.bridgelabz.service;
-
 import com.bridgelabz.exception.AddressBookException;
 import com.bridgelabz.interfaces.AddressBookControllerInterface;
 import com.bridgelabz.interfaces.AddressBookInterface;
 import com.bridgelabz.model.Person;
-import org.junit.Before;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class AddressBookMain {
 
-    // Object reference
-    AddressBookControllerInterface controller;
-    AddressBookInterface addressBook;
+    // Variable
+    private static String path = "F:\\bridgelabze\\addressBook\\addressBook\\";
+    private static String filepath = null;
 
-    @Before
-    public void setUp() {
-        controller = AddressBookFactory.createControlerInterface();
-        addressBook = AddressBookFactory.createAddressBookInterface();
-    }
+    // Object
+    public static AddressBookControllerInterface controller = AddressBookFactory.createControllerInterface();
+    public static AddressBookInterface addressBook = addressBook = AddressBookFactory.createAddressBookInterface();
 
     // function address Book to provide service.
-    public String addressBook(Person person, String file_path, String choice) throws AddressBookException {
-        switch (choice) {
+    public String addressBook(Person person, String... stringArg) throws AddressBookException, IOException {
+        switch (stringArg[1]) {
             case "addressBook":
-                return controller.createNewAddressBook(file_path);
+                return controller.createNewAddressBook(stringArg[0]);
             case "addRecord":
-                return addressBook.addPersonRecord(person, file_path);
-            default: {
+                return addressBook.addPersonRecord(person, stringArg[0]);
+            default:
                 throw new AddressBookException(AddressBookException.MyException_Type.WRONG_CHOICE, "Enter Right Choice");
-            }
         }
     }
 }
