@@ -24,6 +24,10 @@ public class AddressBookMain {
                 return controller.createNewAddressBook(stringArg[0]);
             case "addRecord":
                 return addressBook.addPersonRecord(person, stringArg[0]);
+            case "deleteRecord":
+                return addressBook.deleteRecord(stringArg[0], stringArg[2]);
+            case "sortListByName":
+                return addressBook.sortListByName(stringArg[0]);
             default:
                 throw new AddressBookException(AddressBookException.MyException_Type.WRONG_CHOICE, "Enter Right Choice");
         }
