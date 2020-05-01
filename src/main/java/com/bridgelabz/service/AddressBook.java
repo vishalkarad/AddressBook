@@ -62,4 +62,16 @@ public class AddressBook implements AddressBookInterface {
         }
         return null;
     }
+    // Sort List By Last Name
+    @Override
+    public String sortListByName(String file_path) throws IOException {
+        List arrayList = new ArrayList();
+        String s;
+        arrayList = readFile(file_path);
+        Collections.sort(arrayList, Comparator.comparing(Person::getLastName));
+        List<Person> sortList = Arrays.asList(mapper.readValue((JsonParser) arrayList, Person[].class));
+        sortList.stream().forEach(x -> System.out.println(x.getFirstName() + " " + x.getLastName() + " " + x.getState()
+                + " " + x.getCity() + " " + x.getZip() + " " + x.getPhoneNumber()));
+        return "Sort Records ByName";
+    }
 }
