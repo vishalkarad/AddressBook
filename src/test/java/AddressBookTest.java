@@ -1,9 +1,12 @@
 import com.bridgelabz.exception.AddressBookException;
 import com.bridgelabz.model.Person;
 import com.bridgelabz.service.AddressBookMain;
+import com.bridgelabz.service.FileMenuOptions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import java.io.IOException;
+import java.util.List;
 
 public class AddressBookTest {
 
@@ -11,9 +14,13 @@ public class AddressBookTest {
     AddressBookMain main;
 
     // constant variable
-    private final String FILE_PATH = "F:\\bridgelabze\\addressBook\\addressBook\\myfile.json";
+    String FILE_PATH = "F:\\bridgelabze\\addressBook\\addressBook\\myfile1.json";
     public final String CREATE_FILE = "addressBook";
     public final String ADD_RECORD = "addRecord";
+    public final String DELETE_RECORD ="deleteRecord";
+    public final String SORT_LIST = "sortListByName";
+    public final String SORT_ZIP = "sortListByZip";
+    public final String PRINT_RECORDS = "printRecords";
 
     @Before
     public void setUp() {
@@ -21,14 +28,21 @@ public class AddressBookTest {
     }
 
     @Test
-    public void givenFilePath_WhenCreateNewFile_ThenReturnSuccessMessage() throws AddressBookException {
+    public void givenFilePath_WhenCreateNewFile_ThenReturnSuccessMessage() throws AddressBookException, IOException {
         String result = main.addressBook(new Person(), FILE_PATH, CREATE_FILE);
         Assert.assertEquals("File Created Successfully", result);
     }
 
     @Test
-    public void givenFilePath_WhenAddPersonRecord_ThenReturnSuccessMessage() throws AddressBookException {
-        String result = main.addressBook(new Person("vivek", "karad", "shirur", "maharashtra", "431128"), FILE_PATH, ADD_RECORD);
+    public void givenFilePath_WhenAddPersonRecord_ThenReturnSuccessMessage() throws AddressBookException, IOException {
+        String result = main.addressBook( new Person("nilesh", "aghav", "shirur", "maharashtra", "431156","9763219692"),FILE_PATH, ADD_RECORD);
         Assert.assertEquals("Add Records Successfully", result);
+    }
+
+    @Test
+    public void givenRecordPosition_WhenDeleteRecord_ThenReturnDeletedMessage() throws IOException, AddressBookException {
+        String position="1";
+        String result = main.addressBook(new Person(),FILE_PATH,DELETE_RECORD,position);
+        Assert.assertEquals("Delete Record", result);
     }
 }
