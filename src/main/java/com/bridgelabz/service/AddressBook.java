@@ -1,32 +1,31 @@
 package com.bridgelabz.service;
-
-
+import com.bridgelabz.exception.AddressBookException;
 import com.bridgelabz.interfaces.AddressBookInterface;
 import com.bridgelabz.model.Person;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import jdk.nashorn.internal.parser.JSONParser;
-
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddressBook implements AddressBookInterface {
 
-    // Add Record in json file
+    // class objects
+    File file;
+    ObjectMapper mapper = new ObjectMapper();
+
+    // Add Record In file
     @Override
     public String addPersonRecord(Person person, String file_path) {
         try {
-            File file = new File(file_path);
-            FileWriter printWriter = new FileWriter(file,true);
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(person.toString());
-            printWriter.write(jsonString);
-            printWriter.flush();
+            this.file = new File(file_path);
+            List<Person> list = new ArrayList<>();
+            if (file.length() > 0)
+                list = readFile(file_path);
+            list.add(person);
+            saveRecord(list);
             return "Add Records Successfully";
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,12 +33,33 @@ public class AddressBook implements AddressBookInterface {
         return null;
     }
 
-    public List readFile(String file_path) throws IOException {
-        FileReader file = new FileReader(new File(file_path));
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(file);
-        List ar = new ArrayList();
-        ar.add(jsonNode);
-        return ar;
+    // Delete A Particular Record
+    @Override
+    public String deleteRecord(String... strings) throws IOException {
+        int position = Integer.parseInt(strings[1]);
+        List arrayList = new ArrayList();
+        arrayList = readFile(strings[0]);
+        arrayList.remove(arrayList.get(position - 1));
+        if (arrayList.size() > 0)
+            saveRecord(arrayList);
+        return "Delete Record";
+    }
+
+    // Save Records In File
+    public void saveRecord(List<Person> list) throws IOException {
+        mapper.writeValue(file, list);
+    }
+    // Read Address book
+    public List<Person> readFile(String file_path) {
+        try {
+            this.file = new File(file_path);
+            if (file.length() == 0)
+                throw new AddressBookException(AddressBookException.MyException_Type.FILE_EMPTY, "File is Empty");
+            return mapper.readValue(file, new TypeReference<ArrayList<Person>>() {
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
