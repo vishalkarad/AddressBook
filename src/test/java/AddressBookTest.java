@@ -45,4 +45,10 @@ public class AddressBookTest {
         String result = main.addressBook(new Person(),FILE_PATH,DELETE_RECORD,position);
         Assert.assertEquals("Delete Record", result);
     }
+
+    @Test
+    public void givenFilePath_WhenSortRecordByName_ThenReturnSortedMessage() throws IOException, AddressBookException {
+        String result = main.addressBook(new Person(),FILE_PATH,SORT_LIST);
+        Assert.assertEquals("Sort Records ByName", result);
+    }
 }
