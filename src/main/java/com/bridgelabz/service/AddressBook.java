@@ -62,6 +62,7 @@ public class AddressBook implements AddressBookInterface {
         }
         return null;
     }
+
     // Sort List By Last Name
     @Override
     public String sortListByName(String file_path) throws IOException {
@@ -73,5 +74,17 @@ public class AddressBook implements AddressBookInterface {
         sortList.stream().forEach(x -> System.out.println(x.getFirstName() + " " + x.getLastName() + " " + x.getState()
                 + " " + x.getCity() + " " + x.getZip() + " " + x.getPhoneNumber()));
         return "Sort Records ByName";
+    }
+
+    // Sort List By Zip Code
+    @Override
+    public String sortListByZip(String file_path) throws IOException {
+        List arrayList = new ArrayList();
+        arrayList = readFile(file_path);
+        Collections.sort(arrayList, Comparator.comparing(Person::getZip));
+        List<Person> sortList = Arrays.asList(mapper.readValue(new File(file_path), Person[].class));
+        sortList.stream().forEach(value -> System.out.println(value.getFirstName() + " " + value.getLastName() + " " +
+                value.getState() + " " + value.getCity() + " " + value.getZip() + " " + value.getPhoneNumber()));
+        return "Sort Records ByZip";
     }
 }
