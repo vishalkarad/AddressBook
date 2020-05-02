@@ -87,4 +87,12 @@ public class AddressBook implements AddressBookInterface {
                 value.getState() + " " + value.getCity() + " " + value.getZip() + " " + value.getPhoneNumber()));
         return "Sort Records ByZip";
     }
+
+    // Print All Records In File
+    public void printEntries(String file_path) throws IOException {
+        AtomicInteger rowNumber = new AtomicInteger(1);
+        List<Person> sortList = Arrays.asList(mapper.readValue(new File(file_path), Person[].class));
+        sortList.stream().forEach(value -> System.out.println(rowNumber.getAndIncrement() + " " + value.getFirstName() + " "
+                + value.getLastName() + " " + value.getState() + " " + value.getCity() + " " + value.getZip() + " " + value.getPhoneNumber()));
+    }
 }
