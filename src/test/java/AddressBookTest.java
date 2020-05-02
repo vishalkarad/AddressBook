@@ -57,4 +57,10 @@ public class AddressBookTest {
         String result = main.addressBook(new Person(),FILE_PATH,SORT_ZIP);
         Assert.assertEquals("Sort Records ByZip", result);
     }
+
+    @Test
+    public void givenFilePath_WhenPrintRecord_ThenReturnMessage() throws IOException, AddressBookException {
+        String result = main.addressBook(new Person(),FILE_PATH,PRINT_RECORDS);
+        Assert.assertEquals("printAll", result);
+    }
 }
