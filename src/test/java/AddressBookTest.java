@@ -63,4 +63,10 @@ public class AddressBookTest {
         String result = main.addressBook(new Person(),FILE_PATH,PRINT_RECORDS);
         Assert.assertEquals("printAll", result);
     }
+
+    @Test
+    public void givenDirectoryPath_WhenListOfContaintFile_ThenReturnListOfContaint() {
+        List<String> list = new FileMenuOptions().displayTheContentsOfADirectory();
+        Assert.assertEquals("myfile.json", list.get(0));
+    }
 }
