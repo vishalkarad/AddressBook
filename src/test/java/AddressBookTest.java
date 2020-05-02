@@ -51,4 +51,10 @@ public class AddressBookTest {
         String result = main.addressBook(new Person(),FILE_PATH,SORT_LIST);
         Assert.assertEquals("Sort Records ByName", result);
     }
+
+    @Test
+    public void givenFilePath_WhenSortRecordByZip_ThenReturnSortedMessage() throws IOException, AddressBookException {
+        String result = main.addressBook(new Person(),FILE_PATH,SORT_ZIP);
+        Assert.assertEquals("Sort Records ByZip", result);
+    }
 }
