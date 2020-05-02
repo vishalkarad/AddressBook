@@ -30,6 +30,9 @@ public class AddressBookMain {
                 return addressBook.sortListByName(stringArg[0]);
             case "sortListByZip":
                 return addressBook.sortListByZip(stringArg[0]);
+            case "printRecords":
+                addressBook.printEntries(stringArg[0]);
+                return "printAll";
             default:
                 throw new AddressBookException(AddressBookException.MyException_Type.WRONG_CHOICE, "Enter Right Choice");
         }
