@@ -1,10 +1,12 @@
 package com.bridgelabz.service;
+
 import com.bridgelabz.exception.AddressBookException;
 import com.bridgelabz.interfaces.AddressBookInterface;
 import com.bridgelabz.model.Person;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -49,6 +51,7 @@ public class AddressBook implements AddressBookInterface {
     public void saveRecord(List<Person> list) throws IOException {
         mapper.writeValue(file, list);
     }
+
     // Read Address book
     public List<Person> readFile(String file_path) {
         try {
@@ -70,7 +73,7 @@ public class AddressBook implements AddressBookInterface {
         String s;
         arrayList = readFile(file_path);
         Collections.sort(arrayList, Comparator.comparing(Person::getLastName));
-        List<Person> sortList = Arrays.asList(mapper.readValue((JsonParser) arrayList, Person[].class));
+        List<Person> sortList = Arrays.asList(mapper.readValue(new File(file_path), Person[].class));
         sortList.stream().forEach(x -> System.out.println(x.getFirstName() + " " + x.getLastName() + " " + x.getState()
                 + " " + x.getCity() + " " + x.getZip() + " " + x.getPhoneNumber()));
         return "Sort Records ByName";
@@ -88,11 +91,36 @@ public class AddressBook implements AddressBookInterface {
         return "Sort Records ByZip";
     }
 
+    @Override
     // Print All Records In File
     public void printEntries(String file_path) throws IOException {
         AtomicInteger rowNumber = new AtomicInteger(1);
         List<Person> sortList = Arrays.asList(mapper.readValue(new File(file_path), Person[].class));
         sortList.stream().forEach(value -> System.out.println(rowNumber.getAndIncrement() + " " + value.getFirstName() + " "
                 + value.getLastName() + " " + value.getState() + " " + value.getCity() + " " + value.getZip() + " " + value.getPhoneNumber()));
+    }
+
+    public String updatePersonData(String... strings) throws IOException {
+        int position = Integer.parseInt(strings[1]); //strings[1]=position of record
+        List<Person> arrayList = new ArrayList();
+        arrayList = readFile(strings[0]); //strings[0]=file path of address book
+        switch (strings[2]){ //strings[2]= choice of which property update of person
+            case "CITY":
+                arrayList.get(position-1).setCity(strings[3]); //strings[3]=set value
+                break;
+            case "STATE":
+                arrayList.get(position-1).setState(strings[3]);
+                break;
+            case "ZIP":
+                arrayList.get(position-1).setZip(strings[3]);
+                break;
+            case "PHONENUMBER":
+                arrayList.get(position).setPhoneNumber(strings[3]);
+                break;
+            default:
+                System.out.println("Enter A Write property Name");
+        }
+            saveRecord(arrayList);
+        return "Update Record";
     }
 }
