@@ -9,4 +9,5 @@ public interface AddressBookInterface {
     public String  sortListByName(String file_path) throws IOException;
     public String sortListByZip(String file_path) throws IOException;
     public void printEntries(String file_path) throws IOException;
+    public String updatePersonData(String... strings) throws IOException;
 }
