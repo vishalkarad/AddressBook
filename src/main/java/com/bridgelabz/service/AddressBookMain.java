@@ -65,10 +65,10 @@ public class AddressBookMain {
                         break;
                     }
                     System.out.println("\nIndex \n1) Add Person \n2) Delete a Person " + "\n3) Sort Entries by Name " +
-                            "\n4) Sort Entries by ZIP \n5) Print Entries \n6) Quit Program");
+                            "\n4) Sort Entries by ZIP \n5) Print Entries \n6) Edit Record \n7) Quit Program");
                     System.out.println("\nEnter a choice :");
                     choice = scanner.nextInt();
-                    if (choice > 1 && filepath == null) choice = 7;
+                    if (choice > 1 && filepath == null) choice = 8;
                     switch (choice) {
                         case 1:
                             System.out.println("Enter First Name, Last Name, City, State, Zip, Mobile Number ");
@@ -95,8 +95,21 @@ public class AddressBookMain {
                             addressBook.printEntries(filepath);
                             break;
                         case 6:
-                            System.exit(0);
+                            try {
+                                System.out.println("Enter A Row Number");
+                                String row = scanner1.nextLine();
+                                System.out.println("Enter A personProperty -> city, state, zip, phoneNumber");
+                                String personProperty = scanner1.nextLine().toUpperCase();
+                                System.out.println("Enter A Set Value");
+                                String setValue = scanner1.nextLine();
+                                addressBook.updatePersonData(filepath, row, personProperty, setValue);
+                                break;
+                            }catch (IndexOutOfBoundsException e){
+                                System.out.println("Enter A Write Row Number");
+                            }
                         case 7:
+                            System.exit(0);
+                        case 8:
                             System.out.println("First Open a file : ");
 
                     }
