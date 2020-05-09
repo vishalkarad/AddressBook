@@ -71,8 +71,8 @@ public class AddressBook implements AddressBookInterface {
         arrayList = readFile(file_path);
         Collections.sort(arrayList, Comparator.comparing(Person::getLastName));
         List<Person> sortList = Arrays.asList(mapper.readValue(new File(file_path), Person[].class));
-        sortList.stream().forEach(x -> System.out.println(x.getFirstName() + " " + x.getLastName() + " " + x.getState()
-                + " " + x.getCity() + " " + x.getZip() + " " + x.getPhoneNumber()));
+        sortList.stream().forEach(value -> System.out.println(value.getFirstName() + " " + value.getLastName() + " " + value.getState()
+                + " " + value.getCity() + " " + value.getZip() + " " + value.getPhoneNumber()));
         return "Sort Records ByName";
     }
 
