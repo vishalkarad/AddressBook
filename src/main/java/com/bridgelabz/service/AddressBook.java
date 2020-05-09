@@ -3,10 +3,8 @@ package com.bridgelabz.service;
 import com.bridgelabz.exception.AddressBookException;
 import com.bridgelabz.interfaces.AddressBookInterface;
 import com.bridgelabz.model.Person;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -70,7 +68,6 @@ public class AddressBook implements AddressBookInterface {
     @Override
     public String sortListByName(String file_path) throws IOException {
         List arrayList = new ArrayList();
-        String s;
         arrayList = readFile(file_path);
         Collections.sort(arrayList, Comparator.comparing(Person::getLastName));
         List<Person> sortList = Arrays.asList(mapper.readValue(new File(file_path), Person[].class));
